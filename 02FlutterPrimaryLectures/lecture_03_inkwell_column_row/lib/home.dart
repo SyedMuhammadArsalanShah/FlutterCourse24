@@ -16,7 +16,8 @@ class _HomeState extends State<Home> {
     return MaterialApp(
       home: Scaffold(
         body: Column(
-         
+          mainAxisAlignment: MainAxisAlignment.center,
+         crossAxisAlignment: CrossAxisAlignment.stretch,
    
           children: [
             ElevatedButton(
@@ -45,7 +46,7 @@ class _HomeState extends State<Home> {
                         builder: (context) => Third(),
                       ));
                 },
-                child: Text("Third | InkWell")),
+                child: Text("Third | InkWell Widget")),
           ],
         ),
       ),

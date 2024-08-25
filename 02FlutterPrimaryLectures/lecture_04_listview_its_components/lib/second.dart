@@ -15,6 +15,12 @@ class _SecondState extends State<Second> {
     Colors.black,
     Colors.indigo[900],
     Colors.purple[900],
+    Colors.blue,
+     Colors.teal,
+    Colors.teal[900],
+    Colors.black,
+    Colors.indigo[900],
+    Colors.purple[900],
     Colors.blue
   ];
   @override
@@ -23,13 +29,13 @@ class _SecondState extends State<Second> {
       body: ListView.builder(
         itemBuilder: (context, index) {
           return Container(
-            height: 100,
-            width: 100,
+            // height: 100,
+            // width: 100,
             color: mycolor[index],
           );
         },
         itemCount: mycolor.length,
-        itemExtent: 100,
+        itemExtent: 50,
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lecture_04_listview_its_components/third.dart';
 import 'first.dart';
 import 'second.dart';
 
@@ -41,7 +42,7 @@ class _HomeState extends State<Home> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => First(),
+                        builder: (context) => Third(),
                       ));
                 },
                 child: Text("Third | Seperated List View Builder")),
