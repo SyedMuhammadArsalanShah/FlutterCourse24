@@ -36,6 +36,10 @@ class _ThirdState extends State<Third> {
       body: ListView.separated(
           itemBuilder: (context, index) {
             return ListTile(
+              onTap: (){
+
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Detail(students[index]),));
+              },
               leading: CircleAvatar(
                 backgroundColor:mycolor[index],
                 child: Text(index.toString()),
@@ -59,3 +63,32 @@ class _ThirdState extends State<Third> {
     );
   }
 }
+
+
+
+class Detail extends StatefulWidget {
+ var name;
+ Detail(this.name, {super.key});
+
+  @override
+  State<Detail> createState() => _DetailState();
+}
+
+class _DetailState extends State<Detail> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: Text(widget.name) ,);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
