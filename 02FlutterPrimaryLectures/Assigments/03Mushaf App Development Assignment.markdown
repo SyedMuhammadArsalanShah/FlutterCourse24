@@ -6,7 +6,7 @@ Develop a Mushaf app following the guidelines provided below. Your app should re
    - Implement a list of Surahs with each Surah displaying its **Revelation type** (Makki or Madani) using an appropriate image.
    - Include the **number of verses** (Ayat) for each Surah at the end of its entry in the list.
 
-2. **Highlight Ayat-e-Sajdah:**
+1. **Highlight Ayat-e-Sajdah:**
    - Ensure that any Surah containing **Ayat-e-Sajdah** (verses of prostration) has these verses highlighted in a distinct color to make them easily recognizable.
 
 https://github.com/user-attachments/assets/b171d345-f1d8-4405-ba62-2e1dcbc0b46a
@@ -19,4 +19,5 @@ https://github.com/user-attachments/assets/b171d345-f1d8-4405-ba62-2e1dcbc0b46a
 **Deadline:** 3rd September 2024
 
 **Note:** Watch the video carefully to understand the expected design and functionality. 
+
 **JazakAllah Khair .**
