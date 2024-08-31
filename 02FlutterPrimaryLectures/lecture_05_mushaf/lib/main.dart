@@ -1,6 +1,6 @@
 import 'dart:async';
 
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/quran.dart' as quran;
@@ -40,7 +40,7 @@ class _SplashState extends State<Splash> {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Surahs(),
+                    builder: (context) => Screen(),
                   ))
             });
     super.initState();
@@ -57,6 +57,50 @@ class _SplashState extends State<Splash> {
         ),
       ),
       backgroundColor: Colors.brown[900],
+    );
+  }
+}
+
+class Screen extends StatefulWidget {
+  const Screen({super.key});
+
+  @override
+  State<Screen> createState() => _ScreenState();
+}
+
+class _ScreenState extends State<Screen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Surahs(),
+                      ));
+                },
+                child: Text("Quran")),
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SurahRecitation(),
+                      ));
+                },
+                child: Text("Recitation"))
+          ],
+        ),
+      ),
     );
   }
 }
@@ -79,12 +123,33 @@ class _SurahsState extends State<Surahs> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Recitation(index + 1),
+                    builder: (context) => DetailSurah(index + 1),
                   ));
             },
-            leading: Text("${index + 1}"),
-            title: Text(quran.getSurahName(index + 1)),
+            leading: CircleAvatar(
+                backgroundColor: Colors.brown[900],
+                child: Text(
+                  "${index + 1}",
+                  style: TextStyle(color: Colors.white),
+                )),
+            title: Text(
+                quran.getSurahName(index + 1) +
+                    " | " +
+                    quran.getSurahNameArabic(index + 1),
+                style: GoogleFonts.amiriQuran()),
             subtitle: Text(quran.getSurahNameEnglish(index + 1)),
+            trailing: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                quran.getPlaceOfRevelation(index + 1) == 'Makkah'
+                    ? Image.asset('images/kaaba.png', width: 30, height: 30)
+                    : Image.asset('images/madina.png', width: 30, height: 30),
+                Text(
+                  "verses" + quran.getVerseCount(index + 1).toString(),
+                  style: TextStyle(fontSize: 10),
+                ),
+              ],
+            ),
           );
         },
         itemCount: quran.totalSurahCount,
@@ -118,6 +183,64 @@ class _DetailSurahState extends State<DetailSurah> {
         },
       ),
     );
+  }
+}
+
+class SurahRecitation extends StatefulWidget {
+  const SurahRecitation({super.key});
+
+  @override
+  State<SurahRecitation> createState() => _SurahRecitationState();
+}
+
+class _SurahRecitationState extends State<SurahRecitation> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: ListView.builder(
+      itemBuilder: (context, index) {
+        return ListTile(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Recitation(
+                          index + 1,
+                        )));
+          },
+          leading: CircleAvatar(
+            backgroundColor: Colors.brown[900],
+            child: Text(
+              "${index + 1}",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          title: Text(
+              quran.getSurahName(index + 1) +
+                  " | " +
+                  quran.getSurahNameArabic(index + 1),
+              style: GoogleFonts.amiriQuran()),
+          subtitle: Text(
+            "مشاري بن راشد العفاسي",
+            style: GoogleFonts.amiriQuran(
+                textStyle: TextStyle(color: Colors.brown[800])),
+          ),
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              quran.getPlaceOfRevelation(index + 1) == 'Makkah'
+                  ? Image.asset('images/kaaba.png', width: 30, height: 30)
+                  : Image.asset('images/madina.png', width: 30, height: 30),
+              Text(
+                "verses" + quran.getVerseCount(index + 1).toString(),
+                style: TextStyle(fontSize: 10),
+              ),
+            ],
+          ),
+        );
+      },
+      itemCount: 114,
+    ));
   }
 }
 
@@ -172,11 +295,35 @@ class _RecitationState extends State<Recitation> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center( child:CircleAvatar(
-            backgroundColor: Colors.brown[900],
-            radius: 50,
-            child: Image.network("https://i.scdn.co/image/ab6761610000e5ebac381d07bb60d7bfd3be1fe0"),) ,)
-,          Center(child: IconButton(onPressed: togglebtn, icon: Icon(playpauseButton))),
+          Text(
+            "سورۃ " + quran.getSurahNameArabic(widget.indexSurah),
+            style: GoogleFonts.amiriQuran(textStyle: TextStyle(fontSize: 30)),
+            textDirection: TextDirection.rtl,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Center(
+            child: CircleAvatar(
+              backgroundColor: Color(0xff272729),
+              radius: 100,
+              backgroundImage: AssetImage(
+                "assets/images/alaffasy.png",
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            width: double.infinity,
+            color: Color.fromARGB(255, 49, 13, 1),
+            // height: double.infinity,
+            child: Center(
+                child: IconButton(
+                    onPressed: togglebtn,
+                    icon: Icon(color: Colors.white, playpauseButton))),
+          ),
         ],
       ),
     );
