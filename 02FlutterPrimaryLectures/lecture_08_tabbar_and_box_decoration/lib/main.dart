@@ -86,6 +86,37 @@ class Chats extends StatefulWidget {
 class _ChatsState extends State<Chats> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("Chats")));
+    return Scaffold(
+      body: Center(
+        child: Container(
+          width: 300,
+          height: 300,
+          // color:  Colors.teal,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                 begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                Color(0xff010D26),
+                Color(0xff023E73),
+              ]),
+              // color: Colors.indigo,
+
+              // borderRadius: BorderRadius.only(
+              //     topLeft: Radius.circular(21),
+              //     bottomRight: Radius.circular(21))
+
+              // borderRadius: BorderRadius.circular(21)
+              border: Border.all(
+                width: 2,
+                color: Colors.white,
+              ),
+              boxShadow: [
+                BoxShadow(blurRadius: 21, color: Colors.grey, spreadRadius: 10)
+              ],
+              shape: BoxShape.circle),
+        ),
+      ),
+    );
   }
 }
