@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -28,11 +28,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var time = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        
         child: Column(
           children: [
             // simple card
@@ -45,129 +46,108 @@ class _HomeState extends State<Home> {
             Card(
               child: ListTile(
                 title: Text(
-                  "SMAS",
+                  "Date Time ${time.hour}:${time.minute} ",
                   style: TextStyle(color: Colors.white),
                 ),
               ),
               color: Colors.green,
             ),
-          
-          // elevated card
-          Card(
-            child: ListTile(
-              title: Text("SMAS"),
-            ),
-            elevation: 8,
-          )
-          ,
-          // shadow card
-          Card(
-            child: ListTile(
-              title: Text("SMAS"),
-            ),
-            elevation: 8,
-            shadowColor: Colors.green,
-          ),
-          // shape 
-          Card(
-            child: ListTile(
-              title: Text("SMAS"),
-            ),
-            elevation: 8,
-            shadowColor: Colors.green,
-            shape: BeveledRectangleBorder(
-                borderRadius: BorderRadius.circular(15)
-            ),
-          )
-        ,
-        
-          // margin
-          Card(
-            child: ListTile(
-              //leading: Icon(Icons.music_note),
-              title: Text("SMAS"),
-            ),
-            elevation: 8,
-            shadowColor: Colors.green,
-            margin: EdgeInsets.all(20),
-          )
-          ,
-        
-        // height and width
-          Container(
-            height: 200,
-            width: 200,
-            child: Card(
+
+            // elevated card
+            Card(
               child: ListTile(
+                title: Text("SMAS ${ DateFormat("jms").format(time)}"),
+              ),
+              elevation: 8,
+            ),
+            // shadow card
+            Card(
+              child: ListTile(
+                title: Text("SMAS"),
+              ),
+              elevation: 8,
+              shadowColor: Colors.green,
+            ),
+            // shape
+            Card(
+              child: ListTile(
+                title: Text("SMAS ${time.hour}"),
+              ),
+              elevation: 8,
+              shadowColor: Colors.green,
+              shape: BeveledRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+            ),
+
+            // margin
+            Card(
+              child: ListTile(
+                //leading: Icon(Icons.music_note),
                 title: Text("SMAS"),
               ),
               elevation: 8,
               shadowColor: Colors.green,
               margin: EdgeInsets.all(20),
             ),
-          ),
-        
-        // rounded corners
-        
-          Card(
-            child: ListTile(
-              title: Text("SMAS"),
-            ),
-            elevation: 8,
-            shadowColor: Colors.green,
-            margin: EdgeInsets.all(20),
-            shape:  OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10), 
-                borderSide: BorderSide(color: Colors.white)
-            ),
-          )
-          
-        
-        
-        
-        ,
-        // border and border color
-          Card(
-            child: ListTile(
-              title: Text("SMAS"),
-            ),
-            elevation: 8,
-            shadowColor: Colors.green,
-            margin: EdgeInsets.all(20),
-            shape:  OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.green, width: 1)
-            ),
-          )
-          ,
-        
-        
-        
-        
-          // circular card
-          Card(
-            child: Container(
-              height: 160,
-              width: 160,
-              child: Center(
+
+            // height and width
+            Container(
+              height: 200,
+              width: 200,
+              child: Card(
                 child: ListTile(
                   title: Text("SMAS"),
                 ),
+                elevation: 8,
+                shadowColor: Colors.green,
+                margin: EdgeInsets.all(20),
               ),
             ),
-            elevation: 8,
-            shadowColor: Colors.green,
-            margin: EdgeInsets.all(20),
-            shape: CircleBorder(side: BorderSide(width: 1, color: Colors.white),
+
+            // rounded corners
+
+            Card(
+              child: ListTile(
+                title: Text("SMAS"),
+              ),
+              elevation: 8,
+              shadowColor: Colors.green,
+              margin: EdgeInsets.all(20),
+              shape: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.white)),
             ),
-          )
-          ,
-        
-        
-        
-        
-          
-          
+            // border and border color
+            Card(
+              child: ListTile(
+                title: Text("SMAS"),
+              ),
+              elevation: 8,
+              shadowColor: Colors.green,
+              margin: EdgeInsets.all(20),
+              shape: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.green, width: 1)),
+            ),
+
+            // circular card
+            Card(
+              child: Container(
+                height: 160,
+                width: 160,
+                child: Center(
+                  child: ListTile(
+                    title: Text("SMAS"),
+                  ),
+                ),
+              ),
+              elevation: 8,
+              shadowColor: Colors.green,
+              margin: EdgeInsets.all(20),
+              shape: CircleBorder(
+                side: BorderSide(width: 1, color: Colors.white),
+              ),
+            ),
           ],
         ),
       ),
