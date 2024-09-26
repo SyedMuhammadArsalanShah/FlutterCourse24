@@ -11,23 +11,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Home(),
+      home: const Fourth(),
     );
   }
 }
-
-
-
-// sana ne kaam nhi kia 
-
-
-
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -39,34 +32,271 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Wrap(
-      
-      direction: Axis.vertical,
-      children: [
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-       ElevatedButton(onPressed: (){}, child: Text("Data")),
-          
+    return Scaffold(
+      body: Wrap(
+        direction: Axis.vertical,
+        children: [
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+          ElevatedButton(onPressed: () {}, child: Text("Data")),
+        ],
+      ),
+    );
+  }
+}
 
-    ],),);
+class Second extends StatefulWidget {
+  const Second({super.key});
+
+  @override
+  State<Second> createState() => _SecondState();
+}
+
+class _SecondState extends State<Second> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Column(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  color: Colors.red,
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  color: Colors.red,
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  color: Colors.green,
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  color: Colors.purple,
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  color: Colors.blue,
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  color: Colors.red,
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class Third extends StatefulWidget {
+  const Third({super.key});
+
+  @override
+  State<Third> createState() => _ThirdState();
+}
+
+class _ThirdState extends State<Third> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Stack(
+          children: [
+            Container(
+              width: 400,
+              height: 400,
+              color: Colors.black,
+            ),
+            Positioned(
+                bottom: 10,
+                right: 10,
+                child: Container(
+                  width: 300,
+                  height: 300,
+                  color: Colors.red,
+                )),
+            Container(
+              width: 200,
+              height: 200,
+              color: Colors.green,
+            ),
+            Align(
+                alignment: Alignment.center,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  color: Colors.blue,
+                )),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Fourth extends StatefulWidget {
+  const Fourth({super.key});
+
+  @override
+  State<Fourth> createState() => _FourthState();
+}
+
+class _FourthState extends State<Fourth> {
+
+
+    TextEditingController useremail= TextEditingController();
+    TextEditingController userpass= TextEditingController();
+
+
+
+
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          TextField(
+            controller:  useremail,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.mail,
+                  color: Colors.green,
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    Icons.info,
+                    color: Colors.green,
+                  ),
+                  onPressed: () {
+                    print("bhai info ");
+                  },
+                ),
+                hintText: "enter your email",
+                enabled: true,
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color:  Colors.purple, width: 2), borderRadius:  BorderRadius.circular(14)),
+                // disabledBorder: OutlineInputBorder(borderSide: BorderSide(color:  Colors.grey, width: 2), borderRadius:  BorderRadius.circular(14)),
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(color:  Colors.green, width: 2), borderRadius:  BorderRadius.circular(14)),
+                
+                
+                
+                ),
+          )
+        
+        ,
+
+        Container(height: 10,),
+        
+         TextField(
+            keyboardType: TextInputType.number,
+                   obscureText: true,
+                   obscuringCharacter: "*",
+
+
+            controller: userpass ,
+            decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.mail,
+                  color: Colors.green,
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    Icons.info,
+                    color: Colors.green,
+                  ),
+                  onPressed: () {
+                    print("bhai info ");
+                  },
+                ),
+                hintText: "enter your pass",
+                enabled: true,
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color:  Colors.purple, width: 2), borderRadius:  BorderRadius.circular(14)),
+                // disabledBorder: OutlineInputBorder(borderSide: BorderSide(color:  Colors.grey, width: 2), borderRadius:  BorderRadius.circular(14)),
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(color:  Colors.green, width: 2), borderRadius:  BorderRadius.circular(14)),
+                
+                
+                
+                ),
+          )
+        
+        ,
+
+Container(height: 10,)
+
+        ,
+             ElevatedButton(onPressed: (){
+                  
+                  String email = useremail.text.toString();
+                  String pass = userpass.text;
+
+
+                  print("My Email${email}");
+                  print("My Pass${pass}");
+
+
+
+
+
+             }, child: Text("Login"))
+
+
+
+
+
+        ],
+      ),
+    );
   }
 }
