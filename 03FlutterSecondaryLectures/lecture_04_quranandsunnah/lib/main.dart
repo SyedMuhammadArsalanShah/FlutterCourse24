@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Islamic Insights Hub',
+      title: 'Quran & Sunnah',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff023E73)),
         useMaterial3: true,
@@ -116,7 +117,7 @@ class _TabsScrState extends State<TabsScr> {
               indicatorSize: TabBarIndicatorSize.tab,
               indicator: BoxDecoration(
               shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(50), // Creates border
+                  borderRadius: BorderRadius.circular(10), // Creates border
                   color: Color(0xff010D26)),
               tabs: [
                 Tab(
@@ -172,8 +173,7 @@ class _SurahIndexState extends State<SurahIndex> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: listresp.isNotEmpty
+      body: listresp.isNotEmpty
             ? ListView.builder(
                 itemCount: listresp == null ? 0 : listresp.length,
                 itemBuilder: (context, index) {
@@ -195,15 +195,15 @@ class _SurahIndexState extends State<SurahIndex> {
                     ),
                     title: Text(listresp[index]["name"] +
                         " | " +
-                        listresp[index]["englishName"]),
+                        listresp[index]["englishName"],style: GoogleFonts.amiriQuran(),),
                     subtitle: Text(listresp[index]["englishNameTranslation"]),
                     trailing: Text("Verses\n" +
                         listresp[index]["numberOfAyahs"].toString()),
                   );
                 },
               )
-            : CircularProgressIndicator(),
-      ),
+            : Center(child: CircularProgressIndicator()),
+      
     );
   }
 }
@@ -245,23 +245,22 @@ class _DetailSurahState extends State<DetailSurah> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: listresp.isNotEmpty
+      body: listresp.isNotEmpty
             ? ListView.builder(
                 itemCount: listresp == null ? 0 : listresp.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(listresp[index]["text"]),
+                    title: Text(listresp[index]["text"], style: GoogleFonts.amiriQuran(),textDirection: TextDirection.rtl,),
                   );
                 },
               )
-            : CircularProgressIndicator(),
-      ),
+            : Center(child: CircularProgressIndicator()),
+      
     );
   }
 }
 
-// ankhon se dekhen sana
+
 
 class HadithsScreen extends StatefulWidget {
   const HadithsScreen({super.key});
@@ -331,7 +330,7 @@ class _HadithsScreenState extends State<HadithsScreen> {
                     ));
               },
             )
-          : CircularProgressIndicator(),
+          : Center(child: CircularProgressIndicator()),
     );
   }
 }
@@ -380,27 +379,38 @@ class _ChaptersScreenState extends State<ChaptersScreen> {
                 itemCount: listresp == null ? 0 : listresp.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                      onTap: () {
-                        var bookslug = listresp[index]["bookSlug"];
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => ChaptersScreen(bookslug),
-                        //     ));
-                      },
-                      leading: CircleAvatar(
-                        backgroundColor: Colors.indigo[900],
-                        radius: 30,
-                        child: Text(
-                          listresp[index]["chapterNumber"].toString(),
-                          style: TextStyle(color: Colors.white),
-                        ),
+                    onTap: () {
+                      var bookslug = listresp[index]["bookSlug"];
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => ChaptersScreen(bookslug),
+                      //     ));
+                    },
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.indigo[900],
+                      radius: 30,
+                      child: Text(
+                        listresp[index]["chapterNumber"].toString(),
+                        style: TextStyle(color: Colors.white),
                       ),
-                      title: Text(listresp[index]["chapterArabic"]),
-                      subtitle: Text(listresp[index]["chapterEnglish"] +" | "+listresp[index]["chapterUrdu"] ),
+                    ),
+                    title: Text(
+                      listresp[index]["chapterArabic"],
+                      style: GoogleFonts.amiriQuran(),
+                    ),
+                    subtitle: Text(
+                      listresp[index]["chapterEnglish"] +
+                          " | " +
+                          listresp[index]["chapterUrdu"],
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "jameel",
+                         ),
+                    ),
                   );
                 },
               )
-            : CircularProgressIndicator());
+            : Center(child: CircularProgressIndicator()));
   }
 }

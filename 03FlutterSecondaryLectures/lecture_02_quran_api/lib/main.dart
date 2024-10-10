@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Islamic Insights Hub',
+      title: 'Quran',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff023E73)),
         useMaterial3: true,
@@ -38,7 +39,7 @@ class _SplashScrState extends State<SplashScr> {
 
     Timer(Duration(seconds: 3), (() {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => TabsScr()));
+          context, MaterialPageRoute(builder: (context) => SurahIndex()));
     }));
   }
 
@@ -63,7 +64,7 @@ class _SplashScrState extends State<SplashScr> {
         children: [
           Center(
               child: Text(
-            "Quran & sunnah",
+            "Quran ",
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily: "jameel",
@@ -72,7 +73,7 @@ class _SplashScrState extends State<SplashScr> {
           )),
           Center(
               child: Text(
-            "القرآن والسنة",
+            "القرآن",
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily: "jameel",
@@ -86,56 +87,6 @@ class _SplashScrState extends State<SplashScr> {
         );
   }
 }
-
-class TabsScr extends StatefulWidget {
-  const TabsScr({super.key});
-
-  @override
-  State<TabsScr> createState() => _TabsScrState();
-}
-
-class _TabsScrState extends State<TabsScr> {
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "Quran & sunnah",
-              style: TextStyle(
-                color: Color(0xff010D26),
-              ),
-            ),
-            centerTitle: true,
-            // backgroundColor: Color(0XFF010D26),
-            bottom: TabBar(
-              labelColor: Colors.white,
-              unselectedLabelColor: Colors.grey,
-              indicatorColor: Color(0xff010D26),
-              indicatorSize: TabBarIndicatorSize.tab,
-              indicator: BoxDecoration(
-              shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(50), // Creates border
-                  color: Color(0xff010D26)),
-              tabs: [
-                Tab(
-                  text: "Quran",
-                ),
-                Tab(
-                  text: "Hadith",
-                ),
-              ],
-            ),
-          ),
-          body: TabBarView(children: [
-           SurahIndex(),
-            HadithsScreen(),
-          ])),
-    );
-  }
-}
-
 
 class SurahIndex extends StatefulWidget {
   const SurahIndex({super.key});
@@ -172,8 +123,7 @@ class _SurahIndexState extends State<SurahIndex> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: listresp.isNotEmpty
+      body: listresp.isNotEmpty
             ? ListView.builder(
                 itemCount: listresp == null ? 0 : listresp.length,
                 itemBuilder: (context, index) {
@@ -195,15 +145,15 @@ class _SurahIndexState extends State<SurahIndex> {
                     ),
                     title: Text(listresp[index]["name"] +
                         " | " +
-                        listresp[index]["englishName"]),
+                        listresp[index]["englishName"],style: GoogleFonts.amiriQuran(),),
                     subtitle: Text(listresp[index]["englishNameTranslation"]),
                     trailing: Text("Verses\n" +
                         listresp[index]["numberOfAyahs"].toString()),
                   );
                 },
               )
-            : CircularProgressIndicator(),
-      ),
+            : Center(child: CircularProgressIndicator()),
+      
     );
   }
 }
@@ -245,162 +195,18 @@ class _DetailSurahState extends State<DetailSurah> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: listresp.isNotEmpty
-            ? ListView.builder(
-                itemCount: listresp == null ? 0 : listresp.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(listresp[index]["text"]),
-                  );
-                },
-              )
-            : CircularProgressIndicator(),
-      ),
-    );
-  }
-}
-
-// ankhon se dekhen sana
-
-class HadithsScreen extends StatefulWidget {
-  const HadithsScreen({super.key});
-
-  @override
-  State<HadithsScreen> createState() => _HadithsScreenState();
-}
-
-class _HadithsScreenState extends State<HadithsScreen> {
-  late Map mapresp;
-  late List listresp = [];
-
-  Future apicallkardo() async {
-    var apiKey =
-        "\$2y\$10\$BylaBcXs5Lw7ZOtYmQ3PXO1x15zpp26oc1FeGktdmF6YeYoRd88e";
-    http.Response response = await http
-        .get(Uri.parse("https://hadithapi.com/api/books?apiKey=$apiKey"));
-
-    if (response.statusCode == 200) {
-      setState(() {
-        //  responsedata=response.body;
-
-        mapresp = jsonDecode(response.body);
-        listresp = mapresp["books"];
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    apicallkardo();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
       body: listresp.isNotEmpty
-          ? ListView.builder(
-              itemCount: listresp == null ? 0 : listresp.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                    onTap: () {
-                      var bookslug = listresp[index]["bookSlug"];
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChaptersScreen(bookslug),
-                          ));
-                    },
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.indigo[900],
-                      radius: 30,
-                      child: Text(
-                        "${index + 1}",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    title: Text(listresp[index]["bookName"]),
-                    subtitle: Text(listresp[index]["writerName"]),
-                    trailing: Column(
-                      children: [
-                        Text(listresp[index]["hadiths_count"]),
-                        Text(listresp[index]["chapters_count"]),
-                      ],
-                    ));
-              },
-            )
-          : CircularProgressIndicator(),
-    );
-  }
-}
-
-class ChaptersScreen extends StatefulWidget {
-  var bookslug;
-  ChaptersScreen(this.bookslug, {super.key});
-
-  @override
-  State<ChaptersScreen> createState() => _ChaptersScreenState();
-}
-
-class _ChaptersScreenState extends State<ChaptersScreen> {
-  late Map mapresp;
-  late List listresp = [];
-
-  Future apicallkardo() async {
-    var bookname = widget.bookslug;
-    var apiKey =
-        "\$2y\$10\$BylaBcXs5Lw7ZOtYmQ3PXO1x15zpp26oc1FeGktdmF6YeYoRd88e";
-    http.Response response = await http.get(Uri.parse(
-        "https://hadithapi.com/api/$bookname/chapters?apiKey=$apiKey"));
-
-    if (response.statusCode == 200) {
-      setState(() {
-        //  responsedata=response.body;
-
-        mapresp = jsonDecode(response.body);
-        listresp = mapresp["chapters"];
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    apicallkardo();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: listresp.isNotEmpty
             ? ListView.builder(
                 itemCount: listresp == null ? 0 : listresp.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                      onTap: () {
-                        var bookslug = listresp[index]["bookSlug"];
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => ChaptersScreen(bookslug),
-                        //     ));
-                      },
-                      leading: CircleAvatar(
-                        backgroundColor: Colors.indigo[900],
-                        radius: 30,
-                        child: Text(
-                          listresp[index]["chapterNumber"].toString(),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      title: Text(listresp[index]["chapterArabic"]),
-                      subtitle: Text(listresp[index]["chapterEnglish"] +" | "+listresp[index]["chapterUrdu"] ),
+                    title: Text(listresp[index]["text"], style: GoogleFonts.amiriQuran(),textDirection: TextDirection.rtl,),
                   );
                 },
               )
-            : CircularProgressIndicator());
+            : Center(child: CircularProgressIndicator()),
+      
+    );
   }
 }
+
