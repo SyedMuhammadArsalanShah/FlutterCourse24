@@ -207,11 +207,12 @@ class _ChaptersScreenState extends State<ChaptersScreen> {
                   return ListTile(
                     onTap: () {
                       var bookslug = listresp[index]["bookSlug"];
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => ChaptersScreen(bookslug),
-                      //     ));
+                      var chapterNumber = listresp[index]["chapterNumber"];
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HadithScreen(bookslug, chapterNumber),
+                          ));
                     },
                     leading: CircleAvatar(
                       backgroundColor: Colors.indigo[900],
@@ -238,5 +239,65 @@ class _ChaptersScreenState extends State<ChaptersScreen> {
                 },
               )
             : Center(child: CircularProgressIndicator()));
+  }
+}
+
+
+
+class HadithScreen extends StatefulWidget {
+  var bookSlug;
+  var chapterNumber;
+ HadithScreen(this.bookSlug,this.chapterNumber, {super.key});
+
+  @override
+  State<HadithScreen> createState() => _HadithScreenState();
+}
+
+class _HadithScreenState extends State<HadithScreen> {
+
+
+
+  late Map mapresp;
+  late List listresp = [];
+
+  Future apicallkardo() async {
+    var bookname = widget.bookSlug;
+    var chapterNumber = widget.chapterNumber;
+    var apiKey =
+        "\$2y\$10\$BylaBcXs5Lw7ZOtYmQ3PXO1x15zpp26oc1FeGktdmF6YeYoRd88e";
+    http.Response response = await http.get(Uri.parse(
+        "https://hadithapi.com/public/api/hadiths?apiKey=$apiKey&book=$bookname&chapter=$chapterNumber&paginate=1000000"));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        //  responsedata=response.body;
+
+        mapresp = jsonDecode(response.body);
+        listresp = mapresp["hadiths"]["data"];
+      });
+    }
+  }
+
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    apicallkardo();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+         body: ListView.builder(
+          itemCount: listresp.length,
+          itemBuilder: (context, index) {
+           return ListTile(title: Text(listresp[index]["hadithArabic"],style: TextStyle(fontFamily: "myarabic"),),);
+         },),
+
+
+
+    );
   }
 }
