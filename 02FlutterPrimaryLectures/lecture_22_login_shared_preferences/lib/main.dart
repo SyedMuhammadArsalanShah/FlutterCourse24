@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -54,10 +56,32 @@ class _SplashState extends State<Splash> {
   }
 
   load() async {
-        SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var isLogin = sharedPreferences.getBool("isLogin");
 
-         var isLogin=  sharedPreferences.getBool("isLogin");
-
+    Timer(Duration(seconds: 3), () {
+      if (isLogin != null) {
+        if (isLogin) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeSCR(),
+              ));
+        } else {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LoginSCR(),
+              ));
+        }
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginSCR(),
+            ));
+      }
+    });
   }
 
   @override
@@ -70,5 +94,185 @@ class _SplashState extends State<Splash> {
   }
 }
 
+class LoginSCR extends StatefulWidget {
+  const LoginSCR({super.key});
 
+  @override
+  State<LoginSCR> createState() => _LoginSCRState();
+}
 
+class _LoginSCRState extends State<LoginSCR> {
+  @override
+  TextEditingController useremail = TextEditingController();
+  TextEditingController userpass = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          TextField(
+            controller: useremail,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.mail,
+                color: Colors.green,
+              ),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  Icons.info,
+                  color: Colors.green,
+                ),
+                onPressed: () {
+                  print("bhai info ");
+                },
+              ),
+              hintText: "enter your email",
+              enabled: true,
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.purple, width: 2),
+                  borderRadius: BorderRadius.circular(14)),
+              // disabledBorder: OutlineInputBorder(borderSide: BorderSide(color:  Colors.grey, width: 2), borderRadius:  BorderRadius.circular(14)),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green, width: 2),
+                  borderRadius: BorderRadius.circular(14)),
+            ),
+          ),
+          Container(
+            height: 10,
+          ),
+          TextField(
+            keyboardType: TextInputType.number,
+            obscureText: true,
+            obscuringCharacter: "*",
+            controller: userpass,
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.mail,
+                color: Colors.green,
+              ),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  Icons.info,
+                  color: Colors.green,
+                ),
+                onPressed: () {
+                  print("bhai info ");
+                },
+              ),
+              hintText: "enter your pass",
+              enabled: true,
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.purple, width: 2),
+                  borderRadius: BorderRadius.circular(14)),
+              // disabledBorder: OutlineInputBorder(borderSide: BorderSide(color:  Colors.grey, width: 2), borderRadius:  BorderRadius.circular(14)),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green, width: 2),
+                  borderRadius: BorderRadius.circular(14)),
+            ),
+          ),
+          Container(
+            height: 10,
+          ),
+          ElevatedButton(
+              onPressed: () async {
+                String email = useremail.text.toString();
+                String pass = userpass.text;
+
+                print("My Email${email}");
+                print("My Pass${pass}");
+
+                SharedPreferences sharedPreferences =
+                    await SharedPreferences.getInstance();
+
+                sharedPreferences.setBool("isLogin", true);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Second(),
+                    ));
+              },
+              child: Text("Login"))
+        ],
+      ),
+    );
+  }
+}
+
+class HomeSCR extends StatefulWidget {
+  const HomeSCR({super.key});
+
+  @override
+  State<HomeSCR> createState() => _HomeSCRState();
+}
+
+class _HomeSCRState extends State<HomeSCR> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: ElevatedButton(
+            onPressed: () async {
+              SharedPreferences preferences =
+                  await SharedPreferences.getInstance();
+
+              preferences.setBool("isLogin", false);
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginSCR(),
+                  ));
+            },
+            child: Text("Logout")),
+      ),
+    );
+  }
+}
+
+class Second extends StatefulWidget {
+  const Second({super.key});
+
+  @override
+  State<Second> createState() => _SecondState();
+}
+
+class _SecondState extends State<Second> {
+  List listdata = [
+    {"name": "Ali", "email": "a@gmail.com"},
+    {"name": "Hamza", "email": "a@gmail.com"},
+    {"name": "Usman", "email": "a@gmail.com"},
+    {"name": "Usman", "email": "a@gmail.com"},
+    {"name": "Saaria", "email": "a@gmail.com"},
+    {"name": "Ebad", "email": "a@gmail.com"},
+    {"name": "Hadi", "email": "a@gmail.com"},
+    {"name": "Balach", "email": "a@gmail.com"}
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: ListWheelScrollView(
+            itemExtent: 100,
+            children: listdata.map(
+              (value) {
+                return Center(
+                  child: ListTile(
+                    tileColor: Colors.teal,
+                    textColor: Colors.white,
+                    title: Text(value["name"]),
+                    subtitle: Text(value["email"]),
+                  ),
+                );
+              },
+            ).toList(),
+          ),
+        ),
+      ),
+    );
+  }
+}
