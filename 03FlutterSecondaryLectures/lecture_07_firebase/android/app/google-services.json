@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "432734046951",
+    "project_id": "primetwo-10833",
+    "storage_bucket": "primetwo-10833.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432734046951:android:2175f3995ad1e1b7a9b042",
+        "android_client_info": {
+          "package_name": "com.example.lecture_07_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCboMYavbYpjxGnFs23J5wGaDQmRB79Usc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
