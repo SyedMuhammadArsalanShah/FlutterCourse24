@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:lecture_07_firebase/firebase_options.dart';
 
@@ -205,21 +207,151 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descController = TextEditingController();
+  TextEditingController searchController = TextEditingController();
+
+  DatabaseReference databaseReference =
+      FirebaseDatabase.instance.ref("students");
+
+  final key = FirebaseAuth.instance.currentUser!.uid;
+
+  int id = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: ElevatedButton(
-        child: Text("Logout"),
-        onPressed: () async {
-          await FirebaseAuth.instance.signOut();
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Login(),
-              ));
+      appBar: AppBar(
+        title: Text("Firebase Realtime DB"),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Login(),
+                    ));
+              },
+              icon: Icon(Icons.logout))
+        ],
+      ),
+      body: Column(
+        children: [
+
+          TextField(controller: searchController,decoration:  InputDecoration(hintText: "Search by title"),),
+        Expanded(
+            child: FirebaseAnimatedList(
+              query: databaseReference.child(key),
+              itemBuilder: (context, snapshot, animation, index) {
+               if(searchController.text.isEmpty){
+                return ListTile(
+                  title: Text(snapshot.child("Title").value.toString()),
+                  subtitle: Text(snapshot.child("Title").value.toString()),
+                  trailing: PopupMenuButton(itemBuilder: (context) {
+                 return   [
+                  PopupMenuItem(child: ListTile(onTap: () {
+
+                   final id = snapshot.child("Title").value.toString();
+
+                    meraModal(int.parse(id));
+                  },))
+
+
+
+
+                      
+                    ];
+                  },),
+                  );
+               }
+
+
+
+              },
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          meraModal(0);
         },
-      )),
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  void meraModal(int id) {
+    titleController.clear();
+    descController.clear();
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.fromLTRB(
+              32, 32, 32, MediaQuery.of(context).viewInsets.bottom),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: titleController,
+                decoration: InputDecoration(hintText: "Enter Your Title"),
+              ),
+              TextField(
+                controller: descController,
+                decoration: InputDecoration(hintText: "Enter Your description"),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    String title = titleController.text.toString();
+                    String desc = descController.text.toString();
+                    if (id == 0) {
+                      // createData(data);
+                      id++;
+                      databaseReference.child(key).child("$id").set({
+                        "ID": id,
+                        "Title": title,
+                        "Description": desc,
+                        "DateOfPost": DateTime.now().toString()
+                      }).then(
+                        (value) {
+                          print("Successfully created ");
+                        },
+                      ).onError(
+                        (error, stackTrace) {
+                          print("failed task ");
+                        },
+                      );
+                    } else {
+                      // update
+
+                      databaseReference.child(key).child("$id").update({
+                        "ID": id,
+                        "Title": titleController.text,
+                        "Description": descController.text,
+                        "DateOfPost": DateTime.now().toString()
+                      }).then(
+                        (value) {
+                          print("Successfully created ");
+                        },
+                      ).onError(
+                        (error, stackTrace) {
+                          print("failed task ");
+                        },
+                      );
+                    }
+                    Navigator.pop(context);
+                  },
+                  child: id == 0 ? Text("Add") : Text("update"))
+            ],
+          ),
+        );
+      },
     );
   }
 }
