@@ -1,4 +1,4 @@
-name: lecture_07_firebase
+name: lecture_08_google_map_integration
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -35,13 +35,9 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  firebase_core: ^3.7.0
-  firebase_auth: ^5.3.3
-  firebase_database: ^11.1.6
-  cloud_firestore: ^5.5.0
-  image_picker: ^1.1.2
-  firebase_storage: ^12.3.7
-  fluttertoast: ^8.2.10
+  google_maps_flutter: ^2.10.0
+  geocoding: ^3.0.0
+  geolocator: ^13.0.2
 
 dev_dependencies:
   flutter_test:

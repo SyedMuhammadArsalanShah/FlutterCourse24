@@ -56,7 +56,8 @@ class _SplashState extends State<Splash> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => ImageDB(),
+                // builder: (context) => ImageDB(),
+                builder: (context) => Phone(),
               ));
         } else {
           Navigator.pushReplacement(
