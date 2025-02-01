@@ -22,7 +22,7 @@ class _SearchApiState extends State<SearchApi> {
     String searchInput = searchValue;
 
     String mapApi =
-        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$searchInput&types=geocode&key=AIzaSyA0u7xeX8OOd8COK2CYUiTum2WXSCwgzPk";
+        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$searchInput&types=geocode&key=API_KEY HERE";
 
     http.Response response = await http.get(Uri.parse(mapApi));
 
