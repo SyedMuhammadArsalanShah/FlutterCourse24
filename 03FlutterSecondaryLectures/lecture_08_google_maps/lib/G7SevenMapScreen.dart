@@ -29,10 +29,11 @@ class _SevenMapScreenState extends State<SevenMapScreen> {
     _polygon.add(Polygon(
         polygonId: PolygonId("1"),
         points: points,
-        fillColor: Colors.blue,
+        fillColor: Colors.teal,
         geodesic: true,
         strokeWidth: 2,
-        strokeColor: Colors.indigo));
+        strokeColor: Colors.red
+        ));
   }
 
   @override

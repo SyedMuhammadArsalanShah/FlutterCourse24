@@ -53,14 +53,6 @@ class _FirstMapScreenState extends State<FirstMapScreen> {
         ),
         body: Column(
           children: [
-            ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                  L03CurrentLocation().callLocation(markerslist,completer);
-
-                  });
-                },
-                child: Text("Current Location")),
             Expanded(
               child: Container(
                 height: 100,
@@ -75,6 +67,16 @@ class _FirstMapScreenState extends State<FirstMapScreen> {
                 ),
               ),
             ),
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                  L03CurrentLocation().callLocation(markerslist,completer);
+
+                  });
+                },
+                child: Text("Current Location")),
+
+              SizedBox(height: 10,)
           ],
         ));
   }
