@@ -22,7 +22,7 @@ class _ThirdMapScreenState extends State<ThirdMapScreen> {
     String searchInput=searchvalue;
 
     print("search value smas=>"+searchInput);
-    String request="https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$searchInput&types=geocode&key=AIzaSyA0u7xeX8OOd8COK2CYUiTum2WXSCwgzPk";
+    String request="https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$searchInput&types=geocode&key=YourKeyHere";
    http.Response response = await http.get(Uri.parse(request));
 
     print("api data =>" + response.body);
