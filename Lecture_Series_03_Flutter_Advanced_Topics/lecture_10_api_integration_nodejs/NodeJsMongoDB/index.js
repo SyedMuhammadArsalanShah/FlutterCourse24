@@ -1,5 +1,5 @@
 const express = require("express");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 
 
 const app = express();
@@ -27,8 +27,8 @@ const userdata = [];
 
 // mongodb+srv://smarsalanshah125:<db_password>@cluster0.t47nn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
-mongoose.connect("mongodb+srv://SMAS:123@cluster0.t47nn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(() => console.log("MongoDB Connected"))
-.catch(err => console.error("MongoDB Connection Failed:", err));
+// mongoose.connect("mongodb+srv://SMAS:123@cluster0.t47nn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(() => console.log("MongoDB Connected"))
+// .catch(err => console.error("MongoDB Connection Failed:", err));
 
 
 
