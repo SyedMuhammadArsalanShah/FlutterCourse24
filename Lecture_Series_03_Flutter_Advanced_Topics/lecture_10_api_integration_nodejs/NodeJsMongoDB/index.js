@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 
 
 const app = express();
@@ -16,18 +17,21 @@ app.use(express.urlencoded({ extended: true }));
 
 
 const userdata = [];
+// const mongoURI = "mongodb+srv://SMAS:123@cluster0.mongodb.net/myDatabase?retryWrites=true&w=majority";
+
+// mongoose.connect(mongoURI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// }).then(() => console.log("MongoDB Connected"))
+//   .catch(err => console.error("MongoDB Connection Failed:", err));
+
+// mongodb+srv://smarsalanshah125:<db_password>@cluster0.t47nn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+mongoose.connect("mongodb+srv://SMAS:123@cluster0.t47nn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(() => console.log("MongoDB Connected"))
+.catch(err => console.error("MongoDB Connection Failed:", err));
 
 
 
-
-
-app.listen(2000, () => {
-
-    console.log("connected to server at 2000")
-
-
-
-})
 
 
 
@@ -82,7 +86,7 @@ app.get("/api/get_infouser", (req, res) => {
 
 
 app.post("/api/update_infouser/:id", (req, res) => {
-    let id = req.params.id *1;
+    let id = req.params.id * 1;
     let userdataToUpdate = userdata.find(p => p.id === id);
     let index = userdata.indexOf(userdataToUpdate);
     userdata[index] = req.body;
@@ -104,3 +108,11 @@ app.post("/api/delete_infouser/:id", (req, res) => {
     })
 
 });
+
+app.listen(2000, () => {
+
+    console.log("connected to server at 2000")
+
+
+
+})
